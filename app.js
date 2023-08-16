@@ -16,7 +16,7 @@ async function search(event){
 	const universities = "http://universities.hipolabs.com/search?country=United+kingdom";
 	const results = await (await fetch(universities)).json()
 
-	const foundUniversities = results.filter(item => item.name.includes(searchTerm))
+	const foundUniversities = results.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
 	displayUniversities(foundUniversities)
 }
 
@@ -29,6 +29,7 @@ function formatUniversity(university){
 		<div class="card p-2 my-2">
 			<div>${university.country}</div>
 			<div>${university.name}</div>
+			<div>${university.web_pages}</div>
 			<div><button class="button" onclick="saveUniversity('${university.name}')">Save</button></div>
 			<div><button class="button" onclick="deleteUniversity('${university.name}')">Delete</button></div>
 		</div>
