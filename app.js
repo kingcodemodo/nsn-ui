@@ -22,20 +22,6 @@ async function search(event){
 	displayUniversities(foundUniversities)
 }
 
-// const Home = ({ numbers }) => (
-// 	<div className="columns">
-// 	  {numbers.map((number) => (
-// 		<div className="column is-multiline is-12-mobile is-6-tablet is-4-desktop" key={number.id}>
-// 		 <div className="card">
-// 		  <div className="card-content">
-// 			<p className="title is-4">💠 {number.name}</p>
-// 		  </div>
-// 		 </div>
-// 	   </div>
-// 	 ))}
-//    </div>
-//  );
-
 function displayUniversities(foundUniversities){
 	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("");
 }
@@ -44,12 +30,12 @@ function formatUniversity(university){
 	return `
 	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
 		<div class="card px-5 mx-5 my-2 is-vcentered">
-			<div class="container p-2 m-2">
-				<div>${university.name}</div>
-				<div>${university.country}</div>
-				<div>${university.web_pages}</div>
-				<div><button class="button is-centered" onclick="saveUniversity('${university.name}')">Save</button></div>
-				<div><button class="button is-centered" onclick="deleteUniversity('${university.name}')">Delete</button></div>
+			<div class="container p-2 my-2">
+				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
+				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
+				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
+				<div class="is-flex-grow"><button class="button is-centered" onclick="saveUniversity('${university.name}')">Save</button></div>
+				<div class="is-flex-grow"><button class="button is-centered" onclick="deleteUniversity('${university.name}')">Delete</button></div>
 			</div>
 		</div>
 	</div>
@@ -65,7 +51,7 @@ function deleteUniversity(university){
 	checkSaved();
 }
 
-document.getElementById("header").innerHTML = "<div class='container p-4'><span class='has-text-weight-bold'>NSN</span></div>"
+document.getElementById("header").innerHTML = "<div class='container p-4'><span class='has-text-weight-bold is-justify-content-center'>NSN</span></div>"
 
 document.getElementById("footer").innerHTML = `
 <div class='container p-4 has-background-grey-dark has-text-white-ter'>
