@@ -16,7 +16,9 @@ async function search(event){
 	const universities = "http://universities.hipolabs.com/search?country=United+kingdom";
 	const results = await (await fetch(universities)).json()
 
-	const foundUniversities = results.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+	const uniqueResults = (item, index, results) => results.indexOf(item) == index;
+	
+	const foundUniversities = results.filter(uniqueResults).filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
 	displayUniversities(foundUniversities)
 }
 
@@ -50,9 +52,10 @@ document.getElementById("header").innerHTML = "<div class='container p-4'><span 
 document.getElementById("footer").innerHTML = `
 <div class='container p-4 has-background-grey-dark has-text-white-ter'>
 NSN
-<a href=/><i class="fa-solid fa-house"></i> Home</a>
-<a href=/>Privacy</a>
-<a href=/>Terms</a>
-<a href=/>Contact</a>
-
+	<div class='is-pulled-right'>
+		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> Home</a>
+		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> Privacy</a>
+		<a style="color:#FFFFFF;" href= /> <i class="fa-solid fa-book"> </i> Terms</a>
+		<a style="color:#FFFFFF;" href= /> <i class="fa-solid fa-message"></i> Contact</a>
+	<div>
 </div>`
