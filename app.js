@@ -18,7 +18,7 @@ async function search(event){
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
-	displayUniversities(foundUniversities)
+	displayUniversities(foundUniversities.slice(0,20))
 }
 
 function removeDuplicateUniversities(value, index, self) {
@@ -32,13 +32,19 @@ function displayUniversities(foundUniversities){
 function formatUniversity(university){
 	return `
 	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
-		<div class="card px-5 mx-5 my-2 is-vcentered" style="background-color:#FFFAAA">
+		<div class="card px-5 mx-5 my-3 is-vcentered" style="background-color:#FFFAAA">
 			<div class="container p-2 my-2">
 				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="is-flex-grow"><button class="button is-centered is-full" onclick="saveUniversity('${university.name}')">Save</button></div>
-				<div class="is-flex-grow"><button class="button is-centered is-full" onclick="deleteUniversity('${university.name}')">Delete</button></div>
+				<div class="columns py-3" style="background-color:#ABC123">
+					<div class="column is-half">
+						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')">Save</button>
+					</div>
+					<div class="column is-half">
+						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
