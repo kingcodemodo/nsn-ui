@@ -37,8 +37,8 @@ function formatUniversity(university){
 				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="is-flex-grow"><button class="button is-centered" onclick="saveUniversity('${university.name}')">Save</button></div>
-				<div class="is-flex-grow"><button class="button is-centered" onclick="deleteUniversity('${university.name}')">Delete</button></div>
+				<div class="is-flex-grow"><button class="button is-centered is-full" onclick="saveUniversity('${university.name}')">Save</button></div>
+				<div class="is-flex-grow"><button class="button is-centered is-full" onclick="deleteUniversity('${university.name}')">Delete</button></div>
 			</div>
 		</div>
 	</div>

@@ -17,9 +17,9 @@
 </head>
 
 <body>
-    <div class='hero is-fullheight is-flex is-flex-direction-column is-full'>
-        <header id="header" class="has-border-bottom-black p-4 is-centered"></header>
-        <section id="body" class="is-flex is-flex-direction-column is-flex-grow-1">
+    <div class='hero is-fullheight is-flex is-flex-direction-column is-full has-background-grey-dark'>
+        <header id="header" class="has-border-bottom-black p-4 is-centered "></header>
+        <section id="body" class="is-flex is-flex-direction-column is-flex-grow-1" style="background-color:#ffffff">
             <div class="section">
                 <div class="container">
                     <input class="input" type="text" placeholder="Search for a university" onkeyup="search(event)">
@@ -30,9 +30,10 @@
                 </div>
             </div>
         </section>
-        <footer id="footer"></footer>
+        <!-- <div class="container is-full"> -->
+          <footer id="footer" class="is-full"></footer>
+        <!-- </div> -->
     </div>
-    
     <script src=app.js></script> 
 </body>
 
