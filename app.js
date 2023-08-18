@@ -37,7 +37,7 @@ function formatUniversity(university){
 				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="columns py-3" style="background-color:#ABC123">
+				<div class="columns py-3" style="background-color:#FFFAAA">
 					<div class="column is-half">
 						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
 					</div>
