@@ -7,37 +7,47 @@
 // Making everything function based and this is extensible to adding test cases
 //
 
+// Review
+// https://github.com/Hipo/university-domains-list
+
 checkSaved()
 
 function checkSaved(){
 	document.getElementById("saved").innerHTML = "";
-	let savedUniversity = localStorage.getItem("university");
+	const savedUniversity = localStorage.getItem("university");
 	if(savedUniversity){
 		document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
+		// document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
 	}
 }
 
 async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
+	// API_PREFIX is a way of conveying fixed constants
+	// Constants should be define outside of the functions / 
+	// const API_PREFIX = 
+	// const apiEndpoint = 
+	// const rateLimit = 20
 
 	const universities = "http://universities.hipolabs.com/search?country=United+kingdom";
+	// const universities = "http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
 
 	const results = await (await fetch(universities)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
 	// 5 Second rule of Understanding
-	// Acce
+	// Updated to simply e.g FormattedsearchTerm
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
 	displayUniversities(foundUniversities.slice(0,20))
 }
 
 function removeDuplicateUniversities(value, index, self) {
-	return index === self.findIndex(item => item.name === value.name);
+	return index === self.findIndex(item => item.name === value.name)
 }
   
 function displayUniversities(foundUniversities){
-	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("");
+	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("")
 }
 
 function formatUniversity(university){
@@ -82,7 +92,7 @@ document.getElementById("header").innerHTML = `
 document.getElementById("footer").innerHTML = `
 <div class='container p-4 has-background-grey-dark has-text-white-ter is-full'>
 <b> NSN <b>
-	<div class='is-pulled-right is-desktop'>
+	<div class='is-pulled-right is-centered-mobile'>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
