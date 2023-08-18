@@ -1,3 +1,11 @@
+// To Update
+// Syntax and check spacing and typing
+// Avoid using style tag at all costs - Violates the rules of CSS - Style overwrites CSS - Choose One And Commit
+// Add EOF and Space to Line to Avoid EOF Error
+
+// Good Feedback
+// Making everything function based and this is extensible to adding test cases
+//
 
 checkSaved()
 
@@ -11,19 +19,22 @@ function checkSaved(){
 
 async function search(event){
 	const searchTerm = event.target.value;
+	const formattedSearchTerm = searchTerm.toLowerCase()
 
 	const universities = "http://universities.hipolabs.com/search?country=United+kingdom";
 
 	const results = await (await fetch(universities)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
-	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+	// 5 Second rule of Understanding
+	// Acce
+	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
 	displayUniversities(foundUniversities.slice(0,20))
 }
 
 function removeDuplicateUniversities(value, index, self) {
 	return index === self.findIndex(item => item.name === value.name);
-  }
+}
   
 function displayUniversities(foundUniversities){
 	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("");
@@ -78,3 +89,5 @@ document.getElementById("footer").innerHTML = `
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
 	<div>
 </div>`
+
+//<3 O.Kotur 2023
