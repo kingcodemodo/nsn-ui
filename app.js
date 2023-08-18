@@ -39,7 +39,7 @@ function formatUniversity(university){
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
 				<div class="columns py-3" style="background-color:#ABC123">
 					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')">Save</button>
+						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
 					</div>
 					<div class="column is-half">
 						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
@@ -71,7 +71,7 @@ document.getElementById("header").innerHTML = `
 document.getElementById("footer").innerHTML = `
 <div class='container p-4 has-background-grey-dark has-text-white-ter is-full'>
 <b> NSN <b>
-	<div class='is-pulled-right'>
+	<div class='is-pulled-right is-desktop'>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
