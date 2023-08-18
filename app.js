@@ -78,6 +78,13 @@ function multiDeleteUniversity(university){
 	}
 }
 
+function addToFavourites(university, JSONArray){
+	localStorage.setItem("Favourites", JSON.stringify(parsedLocalStorageArray.push(JSON.parse(university))))
+}
+
+function deleteFromFavourites(university, JSONArray){
+	localStorage.setItem("Favourites", JSON.stringify(JSONArray.filter(item => !isEqual(item, JSON.stringify(university)))))
+}
 async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
