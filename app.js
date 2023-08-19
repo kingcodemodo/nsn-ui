@@ -11,7 +11,7 @@
 // https://github.com/Hipo/university-domains-list
 
 
-
+// Pre Render 
 initialiseLocalStorage()
 
 checkSaved()
@@ -50,22 +50,24 @@ function formatSavedUniversity(savedUniversity){
 
 // Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
+
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
+	const resultsOnGrid = 20
 	// API_PREFIX is a way of conveying fixed constants
 	// Constants should be define outside of the functions / 
 	// const API_PREFIX = 
 	// const apiEndpoint = 
 	// const rateLimit = 20
 
-	const universities = "http://universities.hipolabs.com/search?country=United+kingdom";
-	// const universities = "http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
+	const universities = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=1000&';
+	// const universities = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
 
 	const results = await (await fetch(universities)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
-	displayUniversities(foundUniversities.slice(0,20))
+	displayUniversities(foundUniversities.slice(0,resultsOnGrid))
 }
 
 // Clean API Results Object of Duplicates
@@ -81,11 +83,7 @@ function displayUniversities(foundUniversities){
 // Save / Update Method To Send A University To "Favourites" Local Storage w/ Multisave
 function saveUniversity(university){
 	
-	console.log("[To Be Added] - " + university)
-	console.log("[1]")
 	initialiseLocalStorage()
-	
-	console.log("[2]")
 	const stringArray = localStorage.getItem("Favourites")
 
 	if (JSON.parse(stringArray) == ""){ 
@@ -123,6 +121,7 @@ function saveUniversity(university){
 
 // Delete Method To Remove A  University To "Favourites" Local Storage w/ Individual Delete
 function deleteUniversity(university){
+
 	document.getElementById("saved").innerHTML = "";
 	const savedFavourites = localStorage.getItem("Favourites");
 
@@ -140,8 +139,6 @@ function deleteUniversity(university){
 			localStorage.setItem("Favourites",updateForLocalStorage)
 		}
 	}
-
-	localStorage.removeItem("university");
 	checkSaved();
 }
 
@@ -179,7 +176,7 @@ document.getElementById("header").innerHTML = `
 // Initialise / Render Method For Footer Component
 document.getElementById("footer").innerHTML = `
 <div class='container p-4 has-background-grey-dark has-text-white-ter is-full'>
-<b> NSN <b>
+	<b> NSN <b>
 	<div class='is-pulled-right is-centered-mobile'>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
