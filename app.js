@@ -12,22 +12,33 @@
 
 
 
-
-
+initialiseLocalStorage()
 checkSaved()
 
 function checkSaved(){
 	document.getElementById("saved").innerHTML = "";
-	const savedUniversity = localStorage.getItem("university");
+	const savedFavourites = localStorage.getItem("Favourites");
 	// const parseUniversity = JSON.parse(savedUniversity)
 	// const stringifyUniversity = JSON.stringify(savedUniversity)
-	if(savedUniversity){
-		document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity.toString()
+	if(savedFavourites){
+		const listOfFavourites = JSON.parse(savedFavourites)
+		console.log("1")
+		document.getElementById("saved").innerHTML = listOfFavourites.map(formatSavedUniversity).join("")
+		console.log("2")
 		//`<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
 		// document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
 	}
 }
 
+function formatSavedUniversity(savedUniversity){
+	return`
+		<div>Saved: ${savedUniversity} <button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>
+	`
+}
+
+// function displaySavedUniversity({
+// 	cons
+// })
 function checkMultiSaved(){
 	document.getElementById("saved").innerHTML = "";
 	const savedUniversity = localStorage.getItem("Favourites")
@@ -128,12 +139,57 @@ function formatUniversity(university){
 }
 
 function saveUniversity(university){
-	console.log(university)
-	localStorage.setItem("university", JSON.stringify(university));
+	
+	console.log("[To Be Added] - " + university)
+	console.log("[1]")
+	initialiseLocalStorage()
+	
+	console.log("[2]")
+	const stringArray = localStorage.getItem("Favourites")
+
+	if (JSON.parse(stringArray) == ""){ 
+		console.log(`["${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
+		localStorage.setItem("Favourites", `"${university}"`)
+		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+	}
+	else if (typeof JSON.parse(stringArray) === 'string'){
+		console.log(`"[String Array on Type String - " + ${stringArray}`)
+		console.log(`["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
+		console.log("JSON.parse(stringArray) - " + JSON.parse(stringArray))
+		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
+		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+	}
+	else if (typeof JSON.parse(stringArray) === 'object'){
+
+		console.log("==========================================")
+		const listOfFavourites = JSON.parse(stringArray)
+		console.log(`[1] - [listOfFavourites] - ${listOfFavourites}` )
+		listOfFavourites.push(university)
+		console.log(`[2] - [listOfFavourites] - ${listOfFavourites}` )
+		const formattedListOfFavourites = listOfFavourites.map((item) => `"${item}"`)
+		console.log(`[3] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
+		const updateForLocalStorage = `[${formattedListOfFavourites }]`
+		console.log(`[3] - [updateForLocalStorage] - ${updateForLocalStorage}` )
+		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		localStorage.setItem("Favourites", updateForLocalStorage)
+	}
+	else{
+		console.log("ERROR ON SAVE - UNCRECOGNISED DATA TYPE")
+	}
+
 	checkSaved()
 }
 
+// Initialise Local Storage of Favourites As An Array When First Accessed
+function initialiseLocalStorage(){
+
+	if (localStorage.getItem("Favourites") == null){
+		localStorage.setItem("Favourites","[]")
+	}
+}
+
 function multiSaveUniversity(university){
+
 	document.getElementById("saved").innerHTML = "";
 	const parsedLocalStorageArray = JSON.parse(localStorage.getItem("Favourites"))
 	if (isUniversityInSerialArray(university)){
