@@ -16,6 +16,7 @@ initialiseLocalStorage()
 
 checkSaved()
 
+// Initialise, Render & Refresh The Saved Results Component & It's Data Sources
 function checkSaved(){
 
 	document.getElementById("saved").innerHTML = "";
@@ -32,12 +33,22 @@ function checkSaved(){
 	}
 }
 
+// Initialise Local Storage of Favourites As An Array When First Accessed
+function initialiseLocalStorage(){
+
+	if (localStorage.getItem("Favourites") == null){
+		localStorage.setItem("Favourites","[]")
+	}
+}
+
+// Format / Display Method For Individual Saved Records in Favourites (Local Storage)
 function formatSavedUniversity(savedUniversity){
 	return`
 		<div>Saved: ${savedUniversity} <button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>
 	`
 }
 
+// Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
@@ -57,14 +68,17 @@ async function search(event){
 	displayUniversities(foundUniversities.slice(0,20))
 }
 
+// Clean API Results Object of Duplicates
 function removeDuplicateUniversities(value, index, self) {
 	return index === self.findIndex(item => item.name === value.name)
 }
-  
+
+// Render / Display Method For University Grid
 function displayUniversities(foundUniversities){
 	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("")
 }
 
+// Save / Update Method To Send A University To "Favourites" Local Storage w/ Multisave
 function saveUniversity(university){
 	
 	console.log("[To Be Added] - " + university)
@@ -107,14 +121,7 @@ function saveUniversity(university){
 	checkSaved()
 }
 
-// Initialise Local Storage of Favourites As An Array When First Accessed
-function initialiseLocalStorage(){
-
-	if (localStorage.getItem("Favourites") == null){
-		localStorage.setItem("Favourites","[]")
-	}
-}
-
+// Delete Method To Remove A  University To "Favourites" Local Storage w/ Individual Delete
 function deleteUniversity(university){
 	document.getElementById("saved").innerHTML = "";
 	const savedFavourites = localStorage.getItem("Favourites");
@@ -138,6 +145,7 @@ function deleteUniversity(university){
 	checkSaved();
 }
 
+// Format / Display Method For Individual University Cards / Records To Populate The Grid Table UI
 function formatUniversity(university){
 	return `
 	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
@@ -160,6 +168,7 @@ function formatUniversity(university){
 	`
 }
 
+// Initialise / Render Method For Header Component
 document.getElementById("header").innerHTML = `
 <div class='container p-4 is-full'>
 	<span class='has-text-weight-bold is-justify-content-center'>
@@ -167,7 +176,7 @@ document.getElementById("header").innerHTML = `
 	</span>
 </div>
 `
-
+// Initialise / Render Method For Footer Component
 document.getElementById("footer").innerHTML = `
 <div class='container p-4 has-background-grey-dark has-text-white-ter is-full'>
 <b> NSN <b>
@@ -178,5 +187,3 @@ document.getElementById("footer").innerHTML = `
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
 	<div>
 </div>`
-
-//<3 O.Kotur 2023
