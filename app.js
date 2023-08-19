@@ -13,20 +13,22 @@
 
 
 initialiseLocalStorage()
+
 checkSaved()
 
 function checkSaved(){
+
 	document.getElementById("saved").innerHTML = "";
 	const savedFavourites = localStorage.getItem("Favourites");
-	// const parseUniversity = JSON.parse(savedUniversity)
-	// const stringifyUniversity = JSON.stringify(savedUniversity)
+
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
-		console.log("1")
-		document.getElementById("saved").innerHTML = listOfFavourites.map(formatSavedUniversity).join("")
-		console.log("2")
-		//`<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
-		// document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
+		if (typeof listOfFavourites === "string"){
+			document.getElementById("saved").innerHTML = formatSavedUniversity(listOfFavourites)
+		}
+		else if(typeof listOfFavourites === "object"){
+			document.getElementById("saved").innerHTML = listOfFavourites.map(formatSavedUniversity).join("")
+		}
 	}
 }
 
@@ -34,17 +36,6 @@ function formatSavedUniversity(savedUniversity){
 	return`
 		<div>Saved: ${savedUniversity} <button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>
 	`
-}
-
-// function displaySavedUniversity({
-// 	cons
-// })
-function checkMultiSaved(){
-	document.getElementById("saved").innerHTML = "";
-	const savedUniversity = localStorage.getItem("Favourites")
-	if(savedUniversity){
-		document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
-	}
 }
 
 function isUniversityInSerialArray (jsonArray, jsonObject) {
@@ -203,6 +194,24 @@ function multiSaveUniversity(university){
 }
 
 function deleteUniversity(university){
+	document.getElementById("saved").innerHTML = "";
+	const savedFavourites = localStorage.getItem("Favourites");
+
+	if(savedFavourites){
+		const listOfFavourites = JSON.parse(savedFavourites)
+		console.log("[UNIVERSITY = SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
+		if (typeof listOfFavourites === "string" && university == savedFavourites){
+			console.log("DELETING ONLY ITEM - [" + university + "]")
+			localStorage.setItem("Favourites", "[]")
+		}
+		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
+			const updatedFavouritesList = listOfFavourites.filter(item => item !== university)
+			const formattedNewList = updatedFavouritesList.map(item => `"${item}"`)
+			const updateForLocalStorage = `[${formattedNewList}]`
+			localStorage.setItem("Favourites",updateForLocalStorage)
+		}
+	}
+
 	localStorage.removeItem("university");
 	checkSaved();
 }
