@@ -38,21 +38,6 @@ function formatSavedUniversity(savedUniversity){
 	`
 }
 
-function isUniversityInSerialArray (jsonArray, jsonObject) {
-    const objectName = jsonObject.name;
-    if (!objectName) {
-        return false;
-    }
-
-    for (const item of JSON.parse(jsonArray)) {
-        if (item.name === objectName) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
