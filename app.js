@@ -19,8 +19,11 @@ checkSaved()
 function checkSaved(){
 	document.getElementById("saved").innerHTML = "";
 	const savedUniversity = localStorage.getItem("university");
+	// const parseUniversity = JSON.parse(savedUniversity)
+	// const stringifyUniversity = JSON.stringify(savedUniversity)
 	if(savedUniversity){
-		document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
+		document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity.toString()
+		//`<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
 		// document.getElementById("saved").innerHTML = "<div>Saved: " + savedUniversity + `<button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>`
 	}
 }
@@ -53,18 +56,6 @@ function isUniversityInSerialArray (jsonArray, jsonObject) {
 // Check if the proposed university is already in the array
 // If the favourite is new then "addToFavourites" e.g append the json object to array, re-serialise the updated array and set back to Local Storage
 // If the favourite is already contained then drop a console message
-function multiSaveUniversity(university){
-	document.getElementById("saved").innerHTML = "";
-	const parsedLocalStorageArray = JSON.parse(localStorage.getItem("Favourites"))
-	if (isUniversityInSerialArray(university)){
-		console.log("[FAVOURITE] - [ " + university.name + " ] is already Favourited")
-	}
-	else{
-		addToFavourites(university,parsedLocalStorageArray)
-		console.log("[FAVOURITE] - [ " + university.name + " ] has been added")
-		console.log("[SHORTLIST] \n [ " + JSON.stringify(parsedLocalStorageArray) + " ]")
-	}
-}
 
 function multiDeleteUniversity(university){
 	const parsedLocalStorageArray = JSON.parse(localStorage.getItem("Favourites"))
@@ -124,7 +115,7 @@ function formatUniversity(university){
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
 				<div class="columns py-3" style="background-color:#FFFAAA">
 					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="multiSaveUniversity('${university}')"> Save </button>
+						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
 					</div>
 					<div class="column is-half">
 						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
@@ -137,7 +128,22 @@ function formatUniversity(university){
 }
 
 function saveUniversity(university){
-	localStorage.setItem("university", university);
+	console.log(university)
+	localStorage.setItem("university", JSON.stringify(university));
+	checkSaved()
+}
+
+function multiSaveUniversity(university){
+	document.getElementById("saved").innerHTML = "";
+	const parsedLocalStorageArray = JSON.parse(localStorage.getItem("Favourites"))
+	if (isUniversityInSerialArray(university)){
+		console.log("[FAVOURITE] - [ " + university.name + " ] is already Favourited")
+	}
+	else{
+		addToFavourites(university,parsedLocalStorageArray)
+		console.log("[FAVOURITE] - [ " + university.name + " ] has been added")
+		console.log("[SHORTLIST] \n [ " + JSON.stringify(parsedLocalStorageArray) + " ]")
+	}
 }
 
 function deleteUniversity(university){
