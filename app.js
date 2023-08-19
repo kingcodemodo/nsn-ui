@@ -54,16 +54,14 @@ async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
 	const resultsOnGrid = 20
-	// API_PREFIX is a way of conveying fixed constants
-	// Constants should be define outside of the functions / 
-	// const API_PREFIX = 
-	// const apiEndpoint = 
-	// const rateLimit = 20
+	const rateLimit = 20
 
-	const universities = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=1000&';
-	// const universities = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
 
-	const results = await (await fetch(universities)).json()
+	// Faster Search With API Fields
+	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
+	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
+
+	const results = await (await fetch(universitiesAPI)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
