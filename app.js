@@ -53,31 +53,6 @@ function isUniversityInSerialArray (jsonArray, jsonObject) {
     return false;
 }
 
-// Read The Stringified Array Out of JSON Local Storage from "localStorage.getFavourites"
-// Parse it To JSON for Data Mutability
-// Check if the proposed university is already in the array
-// If the favourite is new then "addToFavourites" e.g append the json object to array, re-serialise the updated array and set back to Local Storage
-// If the favourite is already contained then drop a console message
-
-function multiDeleteUniversity(university){
-	const parsedLocalStorageArray = JSON.parse(localStorage.getItem("Favourites"))
-	if (isUniversityInSerialArray(university)){
-		console.log("[CANNOT DELETE] - [ "+ university.name + " ] IS NOT STORED IN FAVOURITES")
-	}
-	else{
-		deleteFromFavourites(university,parsedLocalStorageArray)
-		console.log("[DELETED] - [ " + university.name + " ] FROM FAVOURITES")
-		console.log("[SHORTLIST] \n [ " + JSON.stringify(parsedLocalStorageArray) + " ]")
-	}
-}
-
-function addToFavourites(university, JSONArray){
-	localStorage.setItem("Favourites", JSON.stringify(parsedLocalStorageArray.push(JSON.parse(university))))
-}
-
-function deleteFromFavourites(university, JSONArray){
-	localStorage.setItem("Favourites", JSON.stringify(JSONArray.filter(item => !isEqual(item, JSON.stringify(university)))))
-}
 async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
@@ -93,8 +68,6 @@ async function search(event){
 	const results = await (await fetch(universities)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
-	// 5 Second rule of Understanding
-	// Updated to simply e.g FormattedsearchTerm
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
 	displayUniversities(foundUniversities.slice(0,20))
 }
@@ -105,28 +78,6 @@ function removeDuplicateUniversities(value, index, self) {
   
 function displayUniversities(foundUniversities){
 	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("")
-}
-
-function formatUniversity(university){
-	return `
-	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
-		<div class="card px-5 mx-5 my-3 is-vcentered" style="background-color:#FFFAAA">
-			<div class="container p-2 my-2">
-				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
-				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
-				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="columns py-3" style="background-color:#FFFAAA">
-					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
-					</div>
-					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	`
 }
 
 function saveUniversity(university){
@@ -179,20 +130,6 @@ function initialiseLocalStorage(){
 	}
 }
 
-function multiSaveUniversity(university){
-
-	document.getElementById("saved").innerHTML = "";
-	const parsedLocalStorageArray = JSON.parse(localStorage.getItem("Favourites"))
-	if (isUniversityInSerialArray(university)){
-		console.log("[FAVOURITE] - [ " + university.name + " ] is already Favourited")
-	}
-	else{
-		addToFavourites(university,parsedLocalStorageArray)
-		console.log("[FAVOURITE] - [ " + university.name + " ] has been added")
-		console.log("[SHORTLIST] \n [ " + JSON.stringify(parsedLocalStorageArray) + " ]")
-	}
-}
-
 function deleteUniversity(university){
 	document.getElementById("saved").innerHTML = "";
 	const savedFavourites = localStorage.getItem("Favourites");
@@ -214,6 +151,28 @@ function deleteUniversity(university){
 
 	localStorage.removeItem("university");
 	checkSaved();
+}
+
+function formatUniversity(university){
+	return `
+	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
+		<div class="card px-5 mx-5 my-3 is-vcentered" style="background-color:#FFFAAA">
+			<div class="container p-2 my-2">
+				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
+				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
+				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
+				<div class="columns py-3" style="background-color:#FFFAAA">
+					<div class="column is-half">
+						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
+					</div>
+					<div class="column is-half">
+						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	`
 }
 
 document.getElementById("header").innerHTML = `
