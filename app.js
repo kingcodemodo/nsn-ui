@@ -143,14 +143,14 @@ function saveUniversity(university){
 		localStorage.setItem("Favourites", `"${university}"`)
 		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
-	else if (typeof JSON.parse(stringArray) === 'string'){
+	else if (typeof JSON.parse(stringArray) === 'string' && university !== JSON.parse(stringArray)){
 		console.log(`"[String Array on Type String - " + ${stringArray}`)
 		console.log(`["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
 		console.log("JSON.parse(stringArray) - " + JSON.parse(stringArray))
 		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
 		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
-	else if (typeof JSON.parse(stringArray) === 'object'){
+	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) == false){
 
 		console.log("==========================================")
 		const listOfFavourites = JSON.parse(stringArray)
