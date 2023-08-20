@@ -47,10 +47,10 @@ async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
 	const resultsOnGrid = 20
-	const rateLimit = 20
+	const APIRateLimit = 250
 
 	// Faster Search With API Fields
-	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
+	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${APIRateLimit}&name=${searchTerm}`;
 	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom";
 
 	// Process JSON Data & Filter Duplicates
