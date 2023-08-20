@@ -44,9 +44,18 @@ function initialiseLocalStorage(){
 // Format / Display Method For Individual Saved Records in Favourites (Local Storage)
 function formatSavedUniversity(savedUniversity){
 	return`
-		<div>Saved: ${savedUniversity} <button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>
+		<div class="columns is-multiline is-centered is-justify-content-space-evenly">
+			<button class="button is-centered is-warning is-medium is-rounded py-4 my-1" onclick="deleteUniversity('${savedUniversity}')">${savedUniversity}</button>
+		</div>
+		
 	`
 }
+
+{/* <div class="columns is-centered is-one-third is-justify-content-space-evenly">
+<p class= "has-text-centered"> Saved: ${savedUniversity} 
+	<button class="button is-centered is-warning is-small is-rounded" onclick="deleteUniversity('${savedUniversity}')">Delete</button>
+</p>
+</div> */}
 
 // Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
@@ -61,9 +70,11 @@ async function search(event){
 	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
 	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
 
+	// Process JSON Data & Filter Duplicates
 	const results = await (await fetch(universitiesAPI)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
+	// Search & Display In Table - 20 Results By Default
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
 	displayUniversities(foundUniversities.slice(0,resultsOnGrid))
 }
@@ -143,19 +154,15 @@ function deleteUniversity(university){
 // Format / Display Method For Individual University Cards / Records To Populate The Grid Table UI
 function formatUniversity(university){
 	return `
-	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
-		<div class="card px-5 mx-5 my-3 is-vcentered" style="background-color:#FFFAAA">
-			<div class="container p-2 my-2">
+	<div class="column is-centered is-one-quarter-desktop is-full-mobile" key=${university.name}>
+		<div class="card px-3 mx-3 my-3 is-centered" style="background-color:#FFFAAA">
+			<div class="container is-centered p-2 my-2">
 				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="columns py-3" style="background-color:#FFFAAA">
-					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
-					</div>
-					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
-					</div>
+				<div class="columns py-3 is-centered" style="background-color:#FFFAAA">
+				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-outlined is-centered" onclick="saveUniversity('${university.name}')">Save</button>
+				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-outlined is-centereds" onclick="deleteUniversity('${university.name}')">Delete</button>
 				</div>
 			</div>
 		</div>
