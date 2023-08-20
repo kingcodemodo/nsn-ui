@@ -49,7 +49,6 @@ async function search(event){
 	const resultsOnGrid = 20
 	const rateLimit = 20
 
-
 	// Faster Search With API Fields
 	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
 	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom";
@@ -61,6 +60,12 @@ async function search(event){
 	// Search & Display In Table - 20 Results By Default
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
 	displayUniversities(foundUniversities.slice(0,resultsOnGrid))
+
+	// Handle Empty Search Field
+	if (searchTerm == "" || searchTerm == null){
+		console.log(`[DETECTED EMPTY SEARCH FIELD - ["${searchTerm}"]`)
+		document.getElementById("results").innerHTML = ""
+	}
 }
 
 // Clean API Results Object of Duplicates
