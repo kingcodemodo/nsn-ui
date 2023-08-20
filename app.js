@@ -1,15 +1,5 @@
-// To Update
-// Syntax and check spacing and typing
-// Avoid using style tag at all costs - Violates the rules of CSS - Style overwrites CSS - Choose One And Commit
-// Add EOF and Space to Line to Avoid EOF Error
-
-// Good Feedback
-// Making everything function based and this is extensible to adding test cases
-//
-
-// Review
-// https://github.com/Hipo/university-domains-list
-
+// MX Dev 2023
+// NSN CIC
 
 // Pre Render 
 initialiseLocalStorage()
@@ -51,12 +41,6 @@ function formatSavedUniversity(savedUniversity){
 	`
 }
 
-{/* <div class="columns is-centered is-one-third is-justify-content-space-evenly">
-<p class= "has-text-centered"> Saved: ${savedUniversity} 
-	<button class="button is-centered is-warning is-small is-rounded" onclick="deleteUniversity('${savedUniversity}')">Delete</button>
-</p>
-</div> */}
-
 // Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
 
@@ -68,7 +52,7 @@ async function search(event){
 
 	// Faster Search With API Fields
 	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
-	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
+	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom";
 
 	// Process JSON Data & Filter Duplicates
 	const results = await (await fetch(universitiesAPI)).json()
@@ -136,9 +120,9 @@ function deleteUniversity(university){
 
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
-		console.log("[UNIVERSITY = SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
+		// console.log("[UNIVERSITY - SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
 		if (typeof listOfFavourites === "string" && university == savedFavourites){
-			console.log("DELETING ONLY ITEM - [" + university + "]")
+			// console.log("DELETING ONLY ITEM - [" + university + "]")
 			localStorage.setItem("Favourites", "[]")
 		}
 		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
