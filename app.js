@@ -96,33 +96,33 @@ function saveUniversity(university){
 	const stringArray = localStorage.getItem("Favourites")
 
 	if (JSON.parse(stringArray) == ""){ 
-		console.log(`["${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
+		// console.log(`[DEBUG-INIT] - "${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
 		localStorage.setItem("Favourites", `"${university}"`)
-		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		// console.log("[DEBUG-INIT] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
 	else if (typeof JSON.parse(stringArray) === 'string' && university !== JSON.parse(stringArray)){
-		console.log(`"[String Array on Type String - " + ${stringArray}`)
-		console.log(`["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
-		console.log("JSON.parse(stringArray) - " + JSON.parse(stringArray))
+		// console.log(`[DEBUG-STRING-SAVE] - "[String Array on Type String - " + ${stringArray}`)
+		// console.log(`[DEBUG-STRING-SAVE] - ["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
+		// console.log("[DEBUG-STRING-SAVE] - JSON.parse(stringArray) - " + JSON.parse(stringArray))
 		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
-		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		// console.log("[DEBUG-STRING-SAVE] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
 	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) == false){
 
-		console.log("==========================================")
+		// console.log("==========================================")
 		const listOfFavourites = JSON.parse(stringArray)
-		console.log(`[1] - [listOfFavourites] - ${listOfFavourites}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
 		listOfFavourites.push(university)
-		console.log(`[2] - [listOfFavourites] - ${listOfFavourites}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
 		const formattedListOfFavourites = listOfFavourites.map((item) => `"${item}"`)
-		console.log(`[3] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
 		const updateForLocalStorage = `[${formattedListOfFavourites }]`
-		console.log(`[3] - [updateForLocalStorage] - ${updateForLocalStorage}` )
-		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		// console.log(`[DEBUG-OBJECT-SAVE] - [updateForLocalStorage] - ${updateForLocalStorage}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [Local Storage Is Now ]" - ${localStorage.getItem("Favourites")}` )
 		localStorage.setItem("Favourites", updateForLocalStorage)
 	}
 	else{
-		console.log("ERROR ON SAVE - UNCRECOGNISED DATA TYPE")
+		console.log("ERROR ON SAVE - UNRECOGNISED DATA TYPE")
 	}
 
 	checkSaved()
