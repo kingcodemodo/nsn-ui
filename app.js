@@ -1,15 +1,5 @@
-// To Update
-// Syntax and check spacing and typing
-// Avoid using style tag at all costs - Violates the rules of CSS - Style overwrites CSS - Choose One And Commit
-// Add EOF and Space to Line to Avoid EOF Error
-
-// Good Feedback
-// Making everything function based and this is extensible to adding test cases
-//
-
-// Review
-// https://github.com/Hipo/university-domains-list
-
+// MX Dev 2023
+// NSN CIC
 
 // Pre Render 
 initialiseLocalStorage()
@@ -44,7 +34,10 @@ function initialiseLocalStorage(){
 // Format / Display Method For Individual Saved Records in Favourites (Local Storage)
 function formatSavedUniversity(savedUniversity){
 	return`
-		<div>Saved: ${savedUniversity} <button class="button" onclick="deleteUniversity('${savedUniversity}')">Delete</button></div>
+		<div class="columns is-multiline is-centered is-justify-content-space-evenly">
+			<button class="button is-centered is-warning is-medium is-rounded py-4 my-1" onclick="deleteUniversity('${savedUniversity}')">${savedUniversity}</button>
+		</div>
+		
 	`
 }
 
@@ -56,16 +49,23 @@ async function search(event){
 	const resultsOnGrid = 20
 	const rateLimit = 20
 
-
 	// Faster Search With API Fields
 	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
-	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom&limit=20&name=";
+	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom";
 
+	// Process JSON Data & Filter Duplicates
 	const results = await (await fetch(universitiesAPI)).json()
 	const uniqueResults = results.filter(removeDuplicateUniversities)
 
+	// Search & Display In Table - 20 Results By Default
 	const foundUniversities = uniqueResults.filter(item => item.name.toLowerCase().includes(formattedSearchTerm))
 	displayUniversities(foundUniversities.slice(0,resultsOnGrid))
+
+	// Handle Empty Search Field
+	if (searchTerm == "" || searchTerm == null){
+		console.log(`[DETECTED EMPTY SEARCH FIELD - ["${searchTerm}"]`)
+		document.getElementById("results").innerHTML = ""
+	}
 }
 
 // Clean API Results Object of Duplicates
@@ -85,33 +85,33 @@ function saveUniversity(university){
 	const stringArray = localStorage.getItem("Favourites")
 
 	if (JSON.parse(stringArray) == ""){ 
-		console.log(`["${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
+		// console.log(`[DEBUG-INIT] - "${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
 		localStorage.setItem("Favourites", `"${university}"`)
-		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		// console.log("[DEBUG-INIT] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
 	else if (typeof JSON.parse(stringArray) === 'string' && university !== JSON.parse(stringArray)){
-		console.log(`"[String Array on Type String - " + ${stringArray}`)
-		console.log(`["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
-		console.log("JSON.parse(stringArray) - " + JSON.parse(stringArray))
+		// console.log(`[DEBUG-STRING-SAVE] - "[String Array on Type String - " + ${stringArray}`)
+		// console.log(`[DEBUG-STRING-SAVE] - ["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
+		// console.log("[DEBUG-STRING-SAVE] - JSON.parse(stringArray) - " + JSON.parse(stringArray))
 		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
-		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		// console.log("[DEBUG-STRING-SAVE] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
 	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) == false){
 
-		console.log("==========================================")
+		// console.log("==========================================")
 		const listOfFavourites = JSON.parse(stringArray)
-		console.log(`[1] - [listOfFavourites] - ${listOfFavourites}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
 		listOfFavourites.push(university)
-		console.log(`[2] - [listOfFavourites] - ${listOfFavourites}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
 		const formattedListOfFavourites = listOfFavourites.map((item) => `"${item}"`)
-		console.log(`[3] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
 		const updateForLocalStorage = `[${formattedListOfFavourites }]`
-		console.log(`[3] - [updateForLocalStorage] - ${updateForLocalStorage}` )
-		console.log("Local Storage Is Now " + localStorage.getItem("Favourites"))
+		// console.log(`[DEBUG-OBJECT-SAVE] - [updateForLocalStorage] - ${updateForLocalStorage}` )
+		// console.log(`[DEBUG-OBJECT-SAVE] - [Local Storage Is Now ]" - ${localStorage.getItem("Favourites")}` )
 		localStorage.setItem("Favourites", updateForLocalStorage)
 	}
 	else{
-		console.log("ERROR ON SAVE - UNCRECOGNISED DATA TYPE")
+		console.log("ERROR ON SAVE - UNRECOGNISED DATA TYPE")
 	}
 
 	checkSaved()
@@ -125,9 +125,9 @@ function deleteUniversity(university){
 
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
-		console.log("[UNIVERSITY = SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
+		// console.log("[UNIVERSITY - SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
 		if (typeof listOfFavourites === "string" && university == savedFavourites){
-			console.log("DELETING ONLY ITEM - [" + university + "]")
+			// console.log("DELETING ONLY ITEM - [" + university + "]")
 			localStorage.setItem("Favourites", "[]")
 		}
 		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
@@ -143,19 +143,15 @@ function deleteUniversity(university){
 // Format / Display Method For Individual University Cards / Records To Populate The Grid Table UI
 function formatUniversity(university){
 	return `
-	<div class="column is-one-quarter-desktop is-full-mobile" key=${university.name}>
-		<div class="card px-5 mx-5 my-3 is-vcentered" style="background-color:#FFFAAA">
-			<div class="container p-2 my-2">
+	<div class="column is-centered is-one-quarter-desktop is-full-mobile" key=${university.name}>
+		<div class="card px-3 mx-3 my-3 is-centered" style="background-color:#FFFAAA">
+			<div class="container is-centered p-2 my-2">
 				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="columns py-3" style="background-color:#FFFAAA">
-					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="saveUniversity('${university.name}')"> Save </button>
-					</div>
-					<div class="column is-half">
-						<button class="button is-half is-flex-grow" onclick="deleteUniversity('${university.name}')">Delete</button>
-					</div>
+				<div class="columns py-3 is-centered" style="background-color:#FFFAAA">
+				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="saveUniversity('${university.name}')">Save</button>
+				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="deleteUniversity('${university.name}')">Delete</button>
 				</div>
 			</div>
 		</div>
