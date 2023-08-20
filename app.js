@@ -161,8 +161,8 @@ function formatUniversity(university){
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
 				<div class="columns py-3 is-centered" style="background-color:#FFFAAA">
-				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-outlined is-centered" onclick="saveUniversity('${university.name}')">Save</button>
-				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-outlined is-centereds" onclick="deleteUniversity('${university.name}')">Delete</button>
+				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="saveUniversity('${university.name}')">Save</button>
+				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="deleteUniversity('${university.name}')">Delete</button>
 				</div>
 			</div>
 		</div>
