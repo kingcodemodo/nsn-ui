@@ -37,7 +37,6 @@ function formatSavedUniversity(savedUniversity){
 		<div class="columns is-multiline is-centered is-justify-content-space-evenly">
 			<button class="button is-centered is-warning is-medium is-rounded py-4 my-1" onclick="deleteUniversity('${savedUniversity}')">${savedUniversity}</button>
 		</div>
-		
 	`
 }
 
@@ -47,10 +46,10 @@ async function search(event){
 	const searchTerm = event.target.value;
 	const formattedSearchTerm = searchTerm.toLowerCase()
 	const resultsOnGrid = 20
-	const rateLimit = 20
+	const APIRateLimit = 250
 
 	// Faster Search With API Fields
-	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${rateLimit}&name=${searchTerm}`;
+	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${APIRateLimit}&name=${searchTerm}`;
 	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom";
 
 	// Process JSON Data & Filter Duplicates
@@ -62,8 +61,7 @@ async function search(event){
 	displayUniversities(foundUniversities.slice(0,resultsOnGrid))
 
 	// Handle Empty Search Field
-	if (searchTerm == "" || searchTerm == null){
-		console.log(`[DETECTED EMPTY SEARCH FIELD - ["${searchTerm}"]`)
+	if (searchTerm === "" || searchTerm === null){
 		document.getElementById("results").innerHTML = ""
 	}
 }
@@ -82,32 +80,25 @@ function displayUniversities(foundUniversities){
 function saveUniversity(university){
 	
 	initialiseLocalStorage()
-	const stringArray = localStorage.getItem("Favourites")
+	const serialisedList = localStorage.getItem("Favourites")
 
-	if (JSON.parse(stringArray) == ""){ 
-		// console.log(`[DEBUG-INIT] - "${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
+	// Serialise new University for Local Storage regardless of state (no strings, single string, multiple strings)
+	// * Also conducts Data Validation to prevent duplicate favourites
+	if (JSON.parse(serialisedList) === ""){ 
 		localStorage.setItem("Favourites", `"${university}"`)
-		// console.log("[DEBUG-INIT] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
-	else if (typeof JSON.parse(stringArray) === 'string' && university !== JSON.parse(stringArray)){
-		// console.log(`[DEBUG-STRING-SAVE] - "[String Array on Type String - " + ${stringArray}`)
-		// console.log(`[DEBUG-STRING-SAVE] - ["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
-		// console.log("[DEBUG-STRING-SAVE] - JSON.parse(stringArray) - " + JSON.parse(stringArray))
-		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
-		// console.log("[DEBUG-STRING-SAVE] - Local Storage Is Now " + localStorage.getItem("Favourites"))
+	else if (typeof JSON.parse(serialisedList) === 'string' && university !== JSON.parse(serialisedList)){
+		localStorage.setItem("Favourites", `["${university}" , ${serialisedList}]`)
 	}
-	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) == false){
+	else if (typeof JSON.parse(serialisedList) === 'object' && JSON.parse(serialisedList).includes(university) === false){
+		const parsedListOfFavourites = JSON.parse(serialisedList)
 
-		// console.log("==========================================")
-		const listOfFavourites = JSON.parse(stringArray)
-		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
-		listOfFavourites.push(university)
-		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
-		const formattedListOfFavourites = listOfFavourites.map((item) => `"${item}"`)
-		// console.log(`[DEBUG-OBJECT-SAVE] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
+		parsedListOfFavourites.push(university)
+		
+		const formattedListOfFavourites = parsedListOfFavourites.map((item) => `"${item}"`)
+		
 		const updateForLocalStorage = `[${formattedListOfFavourites }]`
-		// console.log(`[DEBUG-OBJECT-SAVE] - [updateForLocalStorage] - ${updateForLocalStorage}` )
-		// console.log(`[DEBUG-OBJECT-SAVE] - [Local Storage Is Now ]" - ${localStorage.getItem("Favourites")}` )
+
 		localStorage.setItem("Favourites", updateForLocalStorage)
 	}
 	else{
@@ -125,9 +116,8 @@ function deleteUniversity(university){
 
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
-		// console.log("[UNIVERSITY - SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
+
 		if (typeof listOfFavourites === "string" && university == savedFavourites){
-			// console.log("DELETING ONLY ITEM - [" + university + "]")
 			localStorage.setItem("Favourites", "[]")
 		}
 		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
@@ -177,4 +167,5 @@ document.getElementById("footer").innerHTML = `
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
 	<div>
-</div>`
+</div>
+`
