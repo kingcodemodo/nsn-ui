@@ -1,20 +1,15 @@
-## Background
+## SOLUTION
 
-This is a small example project that lets users search through a list of UK universities and "save" their favourite ones. It calls an API to get the list of universities and displays them on the page.
+Solution provided implements all CSS & JS requirements specified below including:
 
-You should be able to run it on your local machine just by opening index.html in your browser.
+- Optimised Search
+- Grid, Results, Header and Footer Styling Updates
+- Multi-save Functionality & Saved Styling Update
+- Debugging (Duplicates, Display Errors)
+- Mobile Responsiveness / General Responsiveness
+- General Formatting, Styling, Color & Layout
 
-It uses a CSS Framework called Bulma. The documentation for Bulma is here: https://bulma.io/documentation/form/general/ Please don't add any additional dependencies to the project.
-
-## Task
-
-We'd like you to have a go at the 10 CSS tasks and 10 JavaScript tasks below. We don't expect you to have used Bulma, but we'd like you to look at the code and the documentation and figure out how it works. We're looking to see whether you can read documentation for unfamiliar services and apply that knowledge to an unfamiliar codebase.
-
-We're not looking for you to spend ages on this task (the code is a sample project made specifically for this task, not real production code). We'd recommend you spend no more than a couple of hours. We don't necessarily expect you to complete every task. We've intentionally added plenty of activities so that if you get stuck on one you can move to a different one instead.
-
-Please use Google, Stack Overflow or any resources you'd usually use. The aim of the exercise is to try to create real world troubleshooting, not a test of memory.
-
-Once you've completed the task, please zip up your final files and email them back to us.
+## REQUIREMENTS
 
 ## CSS
 
@@ -41,3 +36,17 @@ Once you've completed the task, please zip up your final files and email them ba
 8. When you first load the page, can you make it so that it shows all the saved universities
 9. Can you make sure the delete button still works on the saved favourites
 10. Can you make it so the Delete button only shows up in the results if that university is saved as a favourite and only deletes that one.
+
+## SPECIFICATION
+
+This is a small example project that lets users search through a list of UK universities and "save" their favourite ones. It calls an API to get the list of universities and displays them on the page.
+
+You should be able to run it on your local machine just by opening index.html in your browser.
+
+It uses a CSS Framework called Bulma. The documentation for Bulma is here: https://bulma.io/documentation/form/general/ Please don't add any additional dependencies to the project.
+
+We'd like you to have a go at the 10 CSS tasks and 10 JavaScript tasks below. We don't expect you to have used Bulma, but we'd like you to look at the code and the documentation and figure out how it works. We're looking to see whether you can read documentation for unfamiliar services and apply that knowledge to an unfamiliar codebase.
+
+We're not looking for you to spend ages on this task (the code is a sample project made specifically for this task, not real production code). We'd recommend you spend no more than a couple of hours. We don't necessarily expect you to complete every task. We've intentionally added plenty of activities so that if you get stuck on one you can move to a different one instead.
+
+Please use Google, Stack Overflow or any resources you'd usually use. The aim of the exercise is to try to create real world troubleshooting, not a test of memory.

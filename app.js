@@ -62,7 +62,7 @@ async function search(event){
 	displayUniversities(foundUniversities.slice(0,resultsOnGrid))
 
 	// Handle Empty Search Field
-	if (searchTerm == "" || searchTerm == null){
+	if (searchTerm === "" || searchTerm === null){
 		console.log(`[DETECTED EMPTY SEARCH FIELD - ["${searchTerm}"]`)
 		document.getElementById("results").innerHTML = ""
 	}
@@ -84,30 +84,22 @@ function saveUniversity(university){
 	initialiseLocalStorage()
 	const stringArray = localStorage.getItem("Favourites")
 
-	if (JSON.parse(stringArray) == ""){ 
-		// console.log(`[DEBUG-INIT] - "${university}"] - TO BE PUSHED TO LOCAL STORAGE`)
+	if (JSON.parse(stringArray) === ""){ 
 		localStorage.setItem("Favourites", `"${university}"`)
-		// console.log("[DEBUG-INIT] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
 	else if (typeof JSON.parse(stringArray) === 'string' && university !== JSON.parse(stringArray)){
-		// console.log(`[DEBUG-STRING-SAVE] - "[String Array on Type String - " + ${stringArray}`)
-		// console.log(`[DEBUG-STRING-SAVE] - ["${university}" , ${stringArray}] - TO BE PUSHED TO LOCAL STORAGE`)
-		// console.log("[DEBUG-STRING-SAVE] - JSON.parse(stringArray) - " + JSON.parse(stringArray))
 		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
-		// console.log("[DEBUG-STRING-SAVE] - Local Storage Is Now " + localStorage.getItem("Favourites"))
 	}
-	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) == false){
+	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) === false){
 
-		// console.log("==========================================")
 		const listOfFavourites = JSON.parse(stringArray)
-		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
+
 		listOfFavourites.push(university)
-		// console.log(`[DEBUG-OBJECT-SAVE] - [listOfFavourites] - ${listOfFavourites}` )
+		
 		const formattedListOfFavourites = listOfFavourites.map((item) => `"${item}"`)
-		// console.log(`[DEBUG-OBJECT-SAVE] - [formattedListOfFavourites] - ${formattedListOfFavourites}` )
+		
 		const updateForLocalStorage = `[${formattedListOfFavourites }]`
-		// console.log(`[DEBUG-OBJECT-SAVE] - [updateForLocalStorage] - ${updateForLocalStorage}` )
-		// console.log(`[DEBUG-OBJECT-SAVE] - [Local Storage Is Now ]" - ${localStorage.getItem("Favourites")}` )
+
 		localStorage.setItem("Favourites", updateForLocalStorage)
 	}
 	else{
@@ -125,9 +117,8 @@ function deleteUniversity(university){
 
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
-		// console.log("[UNIVERSITY - SAVED FAVOURITE] - " + `[${university}] - [${savedFavourites}]`)
+
 		if (typeof listOfFavourites === "string" && university == savedFavourites){
-			// console.log("DELETING ONLY ITEM - [" + university + "]")
 			localStorage.setItem("Favourites", "[]")
 		}
 		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
@@ -177,4 +168,5 @@ document.getElementById("footer").innerHTML = `
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
 		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
 	<div>
-</div>`
+</div>
+`
