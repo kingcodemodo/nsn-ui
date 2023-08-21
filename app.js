@@ -34,7 +34,7 @@ function initialiseLocalStorage(){
 // Format / Display Method For Individual Saved Records in Favourites (Local Storage)
 function formatSavedUniversity(savedUniversity){
 	return`
-		<div class="columns is-multiline is-centered is-justify-content-space-evenly">
+		<div class="columns is-mobile is-centered is-justify-content-space-evenly">
 			<button class="button is-centered is-warning is-medium is-rounded py-4 my-1" onclick="deleteUniversity('${savedUniversity}')">${savedUniversity}</button>
 		</div>
 	`
@@ -162,7 +162,6 @@ document.getElementById("header").innerHTML = `
 `
 // Initialise / Render Method For Footer Component
 document.getElementById("footer").innerHTML = `
-
 	<div class='container p-4 has-background-grey-dark has-text-white-ter is-full has-text-centered-mobile is-hidden-mobile'>
 		<b> NSN <b>
 		<div class='is-pulled-right is-centered' id="desktop-footer">
@@ -183,5 +182,4 @@ document.getElementById("footer").innerHTML = `
 			</div>
 		</div>
 	</div>
-
 `
