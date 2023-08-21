@@ -175,10 +175,10 @@ document.getElementById("footer").innerHTML = `
 		<b> NSN <b>
 		<div class='is-centered' id="mobile-footer">
 			<div class='columns pt-4'>
-				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
-				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
-				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
-				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
+				<a class ="ml-1 mr-1" style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
+				<a class ="ml-1 mr-1" style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
+				<a class ="ml-1 mr-1" style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
+				<a class ="ml-1 mr-1" style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
 			</div>
 		</div>
 	</div>
