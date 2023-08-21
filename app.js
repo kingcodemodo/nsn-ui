@@ -82,16 +82,15 @@ function saveUniversity(university){
 	initialiseLocalStorage()
 	const serialisedList = localStorage.getItem("Favourites")
 
+	// Serialise new University for Local Storage regardless of state (no strings, single string, multiple strings)
+	// * Also conducts Data Validation to prevent duplicate favourites
 	if (JSON.parse(serialisedList) === ""){ 
-		console.log("1")
 		localStorage.setItem("Favourites", `"${university}"`)
 	}
 	else if (typeof JSON.parse(serialisedList) === 'string' && university !== JSON.parse(serialisedList)){
-		console.log("2")
 		localStorage.setItem("Favourites", `["${university}" , ${serialisedList}]`)
 	}
 	else if (typeof JSON.parse(serialisedList) === 'object' && JSON.parse(serialisedList).includes(university) === false){
-		console.log("3")
 		const parsedListOfFavourites = JSON.parse(serialisedList)
 
 		parsedListOfFavourites.push(university)
