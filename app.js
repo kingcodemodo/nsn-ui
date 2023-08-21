@@ -143,8 +143,8 @@ function formatUniversity(university){
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
 				<div class="columns py-3 is-centered" style="background-color:#FFFAAA">
-				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="saveUniversity('${university.name}')">Save</button>
-				<button class="button has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="deleteUniversity('${university.name}')">Delete</button>
+				<button class="button is-mobile has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="saveUniversity('${university.name}')">Save</button>
+				<button class="button is-mobile has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="deleteUniversity('${university.name}')">Delete</button>
 				</div>
 			</div>
 		</div>
@@ -173,7 +173,7 @@ document.getElementById("footer").innerHTML = `
 	</div>
 	<div class='container p-4 has-background-grey-dark has-text-white-ter is-full has-text-centered-mobile is-hidden-desktop'>
 		<b> NSN <b>
-		<div class='is-centered is-hidden-desktop' id="mobile-footer">
+		<div class='is-centered' id="mobile-footer">
 			<div class='columns pt-4'>
 				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
 				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
