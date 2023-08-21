@@ -9,8 +9,8 @@ checkSaved()
 // Initialise, Render & Refresh The Saved Results Component & It's Data Sources
 function checkSaved(){
 
-	document.getElementById("saved").innerHTML = "";
-	const savedFavourites = localStorage.getItem("Favourites");
+	document.getElementById("saved").innerHTML = ""
+	const savedFavourites = localStorage.getItem("Favourites")
 
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
@@ -43,14 +43,14 @@ function formatSavedUniversity(savedUniversity){
 // Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
 
-	const searchTerm = event.target.value;
+	const searchTerm = event.target.value
 	const formattedSearchTerm = searchTerm.toLowerCase()
 	const resultsOnGrid = 20
 	const APIRateLimit = 250
 
 	// Faster Search With API Fields
-	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${APIRateLimit}&name=${searchTerm}`;
-	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom";
+	const universitiesAPI = `http://universities.hipolabs.com/search?country=United+kingdom&limit=${APIRateLimit}&name=${searchTerm}`
+	// const universitiesAPI = 'http://universities.hipolabs.com/search?country=United+kingdom"
 
 	// Process JSON Data & Filter Duplicates
 	const results = await (await fetch(universitiesAPI)).json()
@@ -111,8 +111,8 @@ function saveUniversity(university){
 // Delete Method To Remove A  University To "Favourites" Local Storage w/ Individual Delete
 function deleteUniversity(university){
 
-	document.getElementById("saved").innerHTML = "";
-	const savedFavourites = localStorage.getItem("Favourites");
+	document.getElementById("saved").innerHTML = ""
+	const savedFavourites = localStorage.getItem("Favourites")
 
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
@@ -127,7 +127,7 @@ function deleteUniversity(university){
 			localStorage.setItem("Favourites",updateForLocalStorage)
 		}
 	}
-	checkSaved();
+	checkSaved()
 }
 
 // Format / Display Method For Individual University Cards / Records To Populate The Grid Table UI
