@@ -37,7 +37,6 @@ function formatSavedUniversity(savedUniversity){
 		<div class="columns is-multiline is-centered is-justify-content-space-evenly">
 			<button class="button is-centered is-warning is-medium is-rounded py-4 my-1" onclick="deleteUniversity('${savedUniversity}')">${savedUniversity}</button>
 		</div>
-		
 	`
 }
 
@@ -63,7 +62,6 @@ async function search(event){
 
 	// Handle Empty Search Field
 	if (searchTerm === "" || searchTerm === null){
-		console.log(`[DETECTED EMPTY SEARCH FIELD - ["${searchTerm}"]`)
 		document.getElementById("results").innerHTML = ""
 	}
 }
@@ -82,21 +80,23 @@ function displayUniversities(foundUniversities){
 function saveUniversity(university){
 	
 	initialiseLocalStorage()
-	const stringArray = localStorage.getItem("Favourites")
+	const serialisedList = localStorage.getItem("Favourites")
 
-	if (JSON.parse(stringArray) === ""){ 
+	if (JSON.parse(serialisedList) === ""){ 
+		console.log("1")
 		localStorage.setItem("Favourites", `"${university}"`)
 	}
-	else if (typeof JSON.parse(stringArray) === 'string' && university !== JSON.parse(stringArray)){
-		localStorage.setItem("Favourites", `["${university}" , ${stringArray}]`)
+	else if (typeof JSON.parse(serialisedList) === 'string' && university !== JSON.parse(serialisedList)){
+		console.log("2")
+		localStorage.setItem("Favourites", `["${university}" , ${serialisedList}]`)
 	}
-	else if (typeof JSON.parse(stringArray) === 'object' && JSON.parse(stringArray).includes(university) === false){
+	else if (typeof JSON.parse(serialisedList) === 'object' && JSON.parse(serialisedList).includes(university) === false){
+		console.log("3")
+		const parsedListOfFavourites = JSON.parse(serialisedList)
 
-		const listOfFavourites = JSON.parse(stringArray)
-
-		listOfFavourites.push(university)
+		parsedListOfFavourites.push(university)
 		
-		const formattedListOfFavourites = listOfFavourites.map((item) => `"${item}"`)
+		const formattedListOfFavourites = parsedListOfFavourites.map((item) => `"${item}"`)
 		
 		const updateForLocalStorage = `[${formattedListOfFavourites }]`
 
