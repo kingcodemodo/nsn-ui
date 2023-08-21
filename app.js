@@ -43,6 +43,7 @@ function formatSavedUniversity(savedUniversity){
 // Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
 
+	// API Fields & User Inputs
 	const searchTerm = event.target.value
 	const formattedSearchTerm = searchTerm.toLowerCase()
 	const resultsOnGrid = 20
@@ -83,7 +84,7 @@ function saveUniversity(university){
 	const serialisedList = localStorage.getItem("Favourites")
 
 	// Serialise new University for Local Storage regardless of state (no strings, single string, multiple strings)
-	// * Also conducts Data Validation to prevent duplicate favourites
+	// - Also conducts Validation to prevent Duplicate Favourites
 	if (JSON.parse(serialisedList) === ""){ 
 		localStorage.setItem("Favourites", `"${university}"`)
 	}
@@ -105,6 +106,7 @@ function saveUniversity(university){
 		console.log("ERROR ON SAVE - UNRECOGNISED DATA TYPE")
 	}
 
+	// Trigger Refresh of Favourites
 	checkSaved()
 }
 
@@ -114,6 +116,7 @@ function deleteUniversity(university){
 	document.getElementById("saved").innerHTML = ""
 	const savedFavourites = localStorage.getItem("Favourites")
 
+	// Process Delete with Multi-Save
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
 
@@ -121,8 +124,8 @@ function deleteUniversity(university){
 			localStorage.setItem("Favourites", "[]")
 		}
 		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
-			const updatedFavouritesList = listOfFavourites.filter(item => item !== university)
-			const formattedNewList = updatedFavouritesList.map(item => `"${item}"`)
+			const filteredFavouritesList = listOfFavourites.filter(item => item !== university)
+			const formattedNewList = filteredFavouritesList.map(item => `"${item}"`)
 			const updateForLocalStorage = `[${formattedNewList}]`
 			localStorage.setItem("Favourites",updateForLocalStorage)
 		}
@@ -159,13 +162,26 @@ document.getElementById("header").innerHTML = `
 `
 // Initialise / Render Method For Footer Component
 document.getElementById("footer").innerHTML = `
-<div class='container p-4 has-background-grey-dark has-text-white-ter is-full'>
-	<b> NSN <b>
-	<div class='is-pulled-right is-centered-mobile'>
-		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
-		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
-		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
-		<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
-	<div>
-</div>
+
+	<div class='container p-4 has-background-grey-dark has-text-white-ter is-full has-text-centered-mobile is-hidden-mobile'>
+		<b> NSN <b>
+		<div class='is-pulled-right is-centered' id="desktop-footer">
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
+		</div>
+	</div>
+	<div class='container p-4 has-background-grey-dark has-text-white-ter is-full has-text-centered-mobile is-hidden-desktop'>
+		<b> NSN <b>
+		<div class='is-centered is-hidden-desktop' id="mobile-footer">
+			<div class='columns pt-4'>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-house"> </i> <b> Home <b> </a>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-eye"> </i> <b> Privacy <b> </a>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-book"> </i> <b> Terms <b> </a>
+				<a style="color:#FFFFFF;" href=/> <i class="fa-solid fa-message"></i> <b> Contact <b> </a>
+			</div>
+		</div>
+	</div>
+
 `
