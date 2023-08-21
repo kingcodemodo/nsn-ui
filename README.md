@@ -1,3 +1,4 @@
+
 ## SOLUTION
 
 Solution provided implements all CSS & JS requirements specified below including:
@@ -9,7 +10,9 @@ Solution provided implements all CSS & JS requirements specified below including
 - Mobile Responsiveness / General Responsiveness
 - General Formatting, Styling, Color & Layout
 
+
 ## REQUIREMENTS
+
 
 ## CSS
 
@@ -37,7 +40,9 @@ Solution provided implements all CSS & JS requirements specified below including
 9. Can you make sure the delete button still works on the saved favourites
 10. Can you make it so the Delete button only shows up in the results if that university is saved as a favourite and only deletes that one.
 
+
 ## SPECIFICATION
+
 
 This is a small example project that lets users search through a list of UK universities and "save" their favourite ones. It calls an API to get the list of universities and displays them on the page.
 
