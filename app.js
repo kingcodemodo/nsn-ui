@@ -10,10 +10,10 @@ checkSaved()
 function checkSaved(){
 
 	document.getElementById("saved").innerHTML = ""
-	const savedFavourites = localStorage.getItem("Favourites")
+	const serialisedFavourites = localStorage.getItem("Favourites")
 
-	if(savedFavourites){
-		const listOfFavourites = JSON.parse(savedFavourites)
+	if(serialisedFavourites){
+		const listOfFavourites = JSON.parse(serialisedFavourites)
 		if (typeof listOfFavourites === "string"){
 			document.getElementById("saved").innerHTML = formatSavedUniversity(listOfFavourites)
 		}
@@ -40,7 +40,7 @@ function formatSavedUniversity(savedUniversity){
 	`
 }
 
-// Query API - Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
+// Query API - Processed User Input, Clean Duplicates, Limits Results to 20 & Calls Relevant Render / Display Methods
 async function search(event){
 
 	// API Fields & User Inputs
@@ -113,16 +113,16 @@ function saveUniversity(university){
 function deleteUniversity(university){
 
 	document.getElementById("saved").innerHTML = ""
-	const savedFavourites = localStorage.getItem("Favourites")
+	const serialisedFavourites = localStorage.getItem("Favourites")
 
 	// Process Delete with Multi-Save & Check Duplicates
-	if(savedFavourites){
-		const listOfFavourites = JSON.parse(savedFavourites)
+	if(serialisedFavourites){
+		const listOfFavourites = JSON.parse(serialisedFavourites)
 
-		if (type of listOfFavourites === "string" && university == savedFavourites){
+		if (typeof listOfFavourites === "string" && university == serialisedFavourites){
 			localStorage.setItem("Favourites", "[]")
 		}
-		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
+		else if(typeof listOfFavourites === "object" && serialisedFavourites.includes(university)){
 			const filteredFavouritesList = listOfFavourites.filter(item => item !== university)
 			const formattedNewList = filteredFavouritesList.map(item => `"${item}"`)
 			const updateForLocalStorage = `[${formattedNewList}]`
@@ -143,9 +143,9 @@ function formatUniversity(university){
 				<div><p class= "is-size-4 has-text-centered">${university.name}</p></div>
 				<div><p class= "is-size-6 has-text-centered">${university.country}</div>
 				<div><p class= "is-size-6 has-text-centered">${university.web_pages}</div>
-				<div class="columns py-3 is-centered" style="background-color:#FFFAAA">
-				<button class="button is-mobile has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="saveUniversity('${university.name}')">Save</button>
-				<button class="button is-mobile has-text-centered px-3 mx-3 mt-4 is-half is-centered" onclick="deleteUniversity('${university.name}')">Delete</button>
+				<div class="columns py-3 is-mobile has-text-centered is-centered" style="background-color:#FFFAAA">
+					<button class="button is-mobile has-text-centered is-centered px-3 mx-3 mt-4 is-half is-centered" onclick="saveUniversity('${university.name}')">Save</button>
+					<button class="button is-mobile has-text-centered is-centered px-3 mx-3 mt-4 is-half is-centered" onclick="deleteUniversity('${university.name}')">Delete</button>
 				</div>
 			</div>
 		</div>

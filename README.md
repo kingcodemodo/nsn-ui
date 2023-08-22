@@ -24,7 +24,7 @@ Solution provided implements all CSS & JS requirements specified below including
 - Mobile Responsiveness / General Responsiveness
 - General Formatting, Styling, Color & Layout
 
-## CSS
+## CSS REQUIREMENTS
 
 1. Add more padding around the header
 2. There should be a border under the header but it doesn't seem to be working. Could you fix this please?
@@ -37,7 +37,7 @@ Solution provided implements all CSS & JS requirements specified below including
 9. Can we format the results more nicely. Maybe make the university name bigger and bolder and in a different colour.
 10. Can we make it so that on a mobile phone they display in a single column though.
 
-## JS
+## JS REQUIREMENTS
 
 1. When filtering the list of universities, most universities seem to appear twice
 2. When I search for "cambridge" or "manchester" it doesn't find anything. Why not? And can you fix this?
