@@ -77,14 +77,13 @@ function displayUniversities(foundUniversities){
 	document.getElementById("results").innerHTML = foundUniversities.map(formatUniversity).join("")
 }
 
-// Save / Update Method To Send A University To "Favourites" Local Storage w/ Multisave
+// Save / Update Method To Send A University To "Favourites" Local Storage w/ Multisave & Handle Duplicates
 function saveUniversity(university){
 	
 	initialiseLocalStorage()
 	const serialisedList = localStorage.getItem("Favourites")
 
 	// Serialise new University for Local Storage regardless of state (no strings, single string, multiple strings)
-	// - Also conducts Validation to prevent Duplicate Favourites
 	if (JSON.parse(serialisedList) === ""){ 
 		localStorage.setItem("Favourites", `"${university}"`)
 	}
@@ -116,7 +115,7 @@ function deleteUniversity(university){
 	document.getElementById("saved").innerHTML = ""
 	const savedFavourites = localStorage.getItem("Favourites")
 
-	// Process Delete with Multi-Save
+	// Process Delete with Multi-Save & Check Duplicates
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
 
@@ -130,6 +129,8 @@ function deleteUniversity(university){
 			localStorage.setItem("Favourites",updateForLocalStorage)
 		}
 	}
+
+	// Trigger Refresh of Favourites
 	checkSaved()
 }
 
