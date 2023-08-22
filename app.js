@@ -119,7 +119,7 @@ function deleteUniversity(university){
 	if(savedFavourites){
 		const listOfFavourites = JSON.parse(savedFavourites)
 
-		if (typeof listOfFavourites === "string" && university == savedFavourites){
+		if (type of listOfFavourites === "string" && university == savedFavourites){
 			localStorage.setItem("Favourites", "[]")
 		}
 		else if(typeof listOfFavourites === "object" && savedFavourites.includes(university)){
@@ -155,7 +155,7 @@ function formatUniversity(university){
 
 // Initialise / Render Method For Header Component
 document.getElementById("header").innerHTML = `
-<div class='container p-4 is-full'>
+<div class='container p-4 is-full is-mobile'>
 	<span class='has-text-weight-bold is-justify-content-center'>
 		<p class = "is-size-1"><b> NSN <b></p>
 	</span>
